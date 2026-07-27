@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://faiths-of-the-world.vercel.app/sitemap.xml
