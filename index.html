@@ -3,20 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Faiths of the World — Interactive Map of Religion by Country (2020)</title>
+<title>World Religion Map — Interactive 3D Globe of Faiths by Country (2020) | Faiths of the World</title>
 <meta name="description" content="Free interactive 3D globe and world map of religious composition for 201 countries. Pew Research 2020 data: Christian, Muslim, Hindu, Buddhist, Jewish and unaffiliated populations, majority and minority shares, dot-density population mix, and a sortable data table.">
 <meta name="keywords" content="world religion map, religious composition by country, religion statistics 2020, interactive globe, Pew Research religion data, majority religion map, religious minorities">
 <link rel="canonical" href="https://faiths-of-the-world.vercel.app/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://faiths-of-the-world.vercel.app/">
-<meta property="og:title" content="Faiths of the World — Interactive Map of Religion by Country">
+<meta property="og:title" content="World Religion Map — Interactive 3D Globe of Faiths by Country">
 <meta property="og:description" content="Explore the religious composition of 201 countries on an interactive 3D globe. Majorities, minorities, and population mix — Pew Research 2020 estimates.">
 <meta property="og:image" content="https://faiths-of-the-world.vercel.app/preview.png">
 <meta property="og:image:width" content="1440">
 <meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Faiths of the World — Interactive Map of Religion by Country">
+<meta name="twitter:title" content="World Religion Map — Interactive 3D Globe of Faiths by Country">
 <meta name="twitter:description" content="Interactive 3D globe of religious composition for 201 countries — majorities, minorities, and population mix. Pew Research 2020 data.">
 <meta name="twitter:image" content="https://faiths-of-the-world.vercel.app/preview.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
@@ -34,6 +34,7 @@
   "isBasedOn": "https://www.pewresearch.org/religion/feature/religious-composition-by-country-2010-2020/"
 }
 </script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the largest religion in the world?", "acceptedAnswer": {"@type": "Answer", "text": "Christianity, with about 2.3 billion adherents — 28.8% of the world's population in 2020. Islam is second with roughly 2 billion (25.6%), followed by the religiously unaffiliated (24.2%), Hindus (14.9%) and Buddhists (4.1%). Source: Pew Research Center."}}, {"@type": "Question", "name": "How many countries have a Christian or Muslim majority?", "acceptedAnswer": {"@type": "Answer", "text": "Of 201 countries and territories, 119 have a Christian majority and 53 have a Muslim majority, based on Pew Research Center 2020 estimates."}}, {"@type": "Question", "name": "Which countries have no religious majority?", "acceptedAnswer": {"@type": "Answer", "text": "Seven countries have no religious group above 50%: Australia, Côte d'Ivoire, France, Mauritius, Singapore, South Korea, and the United Kingdom. Singapore is the most religiously diverse, with its largest group at just 31%."}}, {"@type": "Question", "name": "Which countries have a Hindu or Buddhist majority?", "acceptedAnswer": {"@type": "Answer", "text": "India and Nepal are the only Hindu-majority countries. Seven countries have Buddhist majorities: Thailand, Myanmar, Cambodia, Laos, Sri Lanka, Bhutan, and Mongolia."}}, {"@type": "Question", "name": "Why does China show as 90% religiously unaffiliated?", "acceptedAnswer": {"@type": "Answer", "text": "Pew Research Center's 2025 revision classifies people by stated religious affiliation. Most people in China practice elements of folk religion without identifying with an organized religion, so they are counted as religiously unaffiliated."}}]}</script>
 </head>
 <body><title>Faiths of the World — Religious Composition 2020</title>
 <style>
@@ -211,11 +212,27 @@ body{
 #pnote{color:var(--faint); font-size:11px; margin-top:14px; line-height:1.55}
 
 /* ---------- table modal ---------- */
-#tmodal{
+#tmodal, #amodal{
   position:fixed; inset:0; z-index:30; display:none; background:color-mix(in srgb, var(--surface) 55%, transparent);
   backdrop-filter:blur(3px);
 }
-#tmodal.open{display:grid; place-items:center}
+#tmodal.open, #amodal.open{display:grid; place-items:center}
+
+/* ---------- about ---------- */
+#abox{
+  position:relative; width:min(680px, 92vw); max-height:min(700px, 88vh); overflow-y:auto;
+  background:var(--panel); border:1px solid var(--panel-brd); border-radius:16px; box-shadow:var(--shadow);
+  padding:28px 32px 26px; font-size:13.5px; line-height:1.65;
+}
+#abox h2{font-family:'Fraunces',Georgia,serif; font-size:23px; font-weight:600; margin:0 0 12px; text-wrap:balance}
+#abox h3{font-family:'Fraunces',Georgia,serif; font-size:16.5px; font-weight:600; margin:20px 0 8px}
+#abox p{margin:0 0 10px; max-width:62ch}
+#abox ul{margin:0 0 10px; padding-left:20px}
+#abox li{margin-bottom:5px}
+#abox dt{font-weight:600; margin-top:11px}
+#abox dd{margin:2px 0 0; color:var(--muted)}
+#abox .amuted{color:var(--faint); font-size:11.5px; margin-top:16px}
+#abox .close{position:sticky; top:0; float:right; box-shadow:none; margin:-8px -12px 0 0}
 #tbox{
   width:min(1060px, 94vw); height:min(640px, 88vh); display:flex; flex-direction:column;
   background:var(--panel); border:1px solid var(--panel-brd); border-radius:16px; box-shadow:var(--shadow);
@@ -271,6 +288,7 @@ body{
   <input id="search" list="countrylist" placeholder="Find a country…" aria-label="Find a country">
   <datalist id="countrylist"></datalist>
   <button id="tablebtn" class="icobtn" title="Open data table">Table</button>
+  <button id="aboutbtn" class="icobtn" title="About this map">About</button>
 </div>
 
 <div id="rail">
@@ -312,6 +330,38 @@ body{
   <div id="prows"></div>
   <div id="pnote"></div>
 </aside>
+
+<div id="amodal" class="modal">
+  <article id="abox" role="dialog" aria-label="About this map">
+    <button class="icobtn close" id="aclose" aria-label="Close">×</button>
+    <h2>About this world religion map</h2>
+    <p><strong>Faiths of the World</strong> is a free interactive world map of religion: a 3-D globe and flat map showing the religious composition of 201 countries and territories, based on Pew Research Center's 2020 estimates of religious affiliation, compiled from more than 2,700 censuses and surveys.</p>
+    <p>The map has three ways of looking at the same data. The <em>majority view</em> colors each country by its largest religious group — Christian, Muslim, Hindu, Buddhist, Jewish, religiously unaffiliated, or other religions — with hatching where no single group reaches 50%. The <em>population mix</em> view is a dot-density map in which one dot represents one million people, so religious minorities remain visible inside every country. The <em>per-religion lenses</em> shade every country by a single group's share of its population.</p>
+    <h3>The world's religious landscape in 2020</h3>
+    <ul>
+      <li><strong>Christianity</strong> is the world's largest religion at 28.8% of the global population, and the majority religion in 119 of the 201 countries mapped.</li>
+      <li><strong>Islam</strong> is second at 25.6% and the fastest-growing major religion; 53 countries have a Muslim majority.</li>
+      <li><strong>Religiously unaffiliated</strong> people — atheists, agnostics, and those with no particular religion — are 24.2% of humanity and the majority in 10 countries, including China, Japan, the Netherlands, and Uruguay.</li>
+      <li><strong>Hinduism</strong> accounts for 14.9% of the world, concentrated in the two Hindu-majority countries, India and Nepal.</li>
+      <li><strong>Buddhism</strong> is 4.1% of the world, with majorities in Thailand, Myanmar, Cambodia, Laos, Sri Lanka, Bhutan, and Mongolia.</li>
+      <li><strong>Judaism</strong> is about 0.2% of the world's population; Israel is the only country where Jews are the largest group.</li>
+    </ul>
+    <h3>Frequently asked questions</h3>
+    <dl>
+      <dt>What is the largest religion in the world?</dt>
+      <dd>Christianity, with about 2.3 billion adherents — 28.8% of the world's population in 2020. Islam is second with roughly 2 billion (25.6%).</dd>
+      <dt>Which countries have no religious majority?</dt>
+      <dd>Seven countries in this dataset have no group above 50%: Australia, Côte d'Ivoire, France, Mauritius, Singapore, South Korea, and the United Kingdom. Singapore is the most religiously diverse — its largest group is just 31% of the population.</dd>
+      <dt>Why does China show as ~90% religiously unaffiliated?</dt>
+      <dd>Pew's 2025 revision classifies people by stated affiliation; most people in China practice elements of folk religion without identifying with an organized religion, so they are counted as unaffiliated.</dd>
+      <dt>Where do religious minorities live?</dt>
+      <dd>Everywhere — that is what the dot-density view shows. India's 79% Hindu majority lives alongside more than 200 million Muslims, one of the largest Muslim populations in the world; sizable Christian minorities exist across the Middle East, and Muslim minorities across Europe and India.</dd>
+      <dt>How accurate is this data?</dt>
+      <dd>Figures are Pew Research Center estimates for 2020, published in 2025, based on how people describe their own religious identity in censuses and surveys. Countries with fewer than 100,000 people are not covered.</dd>
+    </dl>
+    <p class="amuted">Sources: Pew Research Center, Global Religious Composition 2010–2020 (via Our World in Data); boundaries and place names from Natural Earth. Map by Suraj Maurya.</p>
+  </article>
+</div>
 
 <div id="tmodal">
   <div id="tbox" role="dialog" aria-label="All countries data table">
@@ -864,7 +914,11 @@ const tmodal=document.getElementById('tmodal');
 document.getElementById('tablebtn').onclick=()=>{ buildTable(); tmodal.classList.add('open'); };
 document.getElementById('tclose').onclick=()=>tmodal.classList.remove('open');
 tmodal.addEventListener('click',(e)=>{ if(e.target===tmodal) tmodal.classList.remove('open'); });
-addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ tmodal.classList.remove('open'); panel.classList.remove('open'); selF=null; render(); }});
+const amodal=document.getElementById('amodal');
+document.getElementById('aboutbtn').onclick=()=>amodal.classList.add('open');
+document.getElementById('aclose').onclick=()=>amodal.classList.remove('open');
+amodal.addEventListener('click',(e)=>{ if(e.target===amodal) amodal.classList.remove('open'); });
+addEventListener('keydown',(e)=>{ if(e.key==='Escape'){ tmodal.classList.remove('open'); amodal.classList.remove('open'); panel.classList.remove('open'); selF=null; render(); }});
 
 let sortCol=1, sortDir=-1;
 function buildTable(){
